@@ -1,10 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import signinimage from '../../images/signin-g.svg'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ScrollToTop from "../ScrollToTop";
+import { loginUser } from "../../service/Api";
 // import Grocerylogo from '../../images/Grocerylogo.png'
 
 const MyAccountSignIn = () => {
+  const navigate = useNavigate();
+
+  const[formData, setFormData] = useState({
+    email: "",
+    password: "",
+  })
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+
+  const handleSubmit = async (event) =>{
+    event.preventDefault();
+
+    const userdata = {
+      email: formData.email,
+      password: formData.password
+    }
+    
+    try{
+      const response = await loginUser(userdata);
+      localStorage.setItem("user_email", response.id);
+      localStorage.setItem("token", response.access_token);
+      localStorage.setItem("user_status", "active");
+      navigate("/Grocery-react");
+    }catch(error){
+      alert(error.response?.data?.detail || "Login failed");
+    }
+  }
+
   return (
     <div>
       <>
@@ -51,7 +83,7 @@ const MyAccountSignIn = () => {
                       started.
                     </p>
                   </div>
-                  <form>
+                  <form method="POST" onSubmit={handleSubmit}>
                     <div className="row g-3">
                       {/* row */}
                       <div className="col-12">
@@ -61,6 +93,8 @@ const MyAccountSignIn = () => {
                           className="form-control"
                           id="inputEmail4"
                           placeholder="Email"
+                          name="email"
+                          onChange={handleChange}
                           required
                         />
                       </div>
@@ -71,6 +105,8 @@ const MyAccountSignIn = () => {
                           className="form-control"
                           id="inputPassword4"
                           placeholder="Password"
+                          name="password"
+                          onChange={handleChange}
                           required
                         />
                       </div>
