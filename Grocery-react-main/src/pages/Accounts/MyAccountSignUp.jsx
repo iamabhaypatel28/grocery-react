@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import signupimage from "../../images/signup-g.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ScrollToTop from "../ScrollToTop";
-import {registerUser} from "../../api/Api";
+import {registerUser} from "../../service/Api";
 
 const MyAccountSignUp = () => {
-
+    const navigate  =useNavigate();
 
     const [formData, setFormData] = useState({
       firstname: "",
@@ -27,11 +27,11 @@ const MyAccountSignUp = () => {
         email: formData.email,
         password: formData.password,
       };
-      // console.log("=1=1=1=1=1=1=1=1=1==1=1=1===1===1=1=", userData) ok
   
       try {
         const response = await registerUser(userData);
         alert(response.message); 
+        navigate("/MyAccountSignIn")  
       } catch (error) {
         alert(error.response?.data?.detail || "Registration failed");
       }

@@ -6,11 +6,21 @@ from config.database import get_db
 from sqlalchemy.sql import text
 from config.database import engine
 from models.user import Base  
+from fastapi.middleware.cors import CORSMiddleware
+from config.settings import ORIGINS
 
 app = FastAPI()
 
 app.include_router(user_router, prefix="/api", tags=["User Management"])
 
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=ORIGINS,
+    allow_credentials=True,
+    allow_methods=["*"],  
+    allow_headers=["*"],  
+)
 
 
 # Create tables in the database
