@@ -15,3 +15,10 @@ class RegisterResponse(BaseModel):
 class LoginRequest(BaseModel):
     email: EmailStr
     password: str
+    
+class forgetpasswordRequest(BaseModel):
+    email : EmailStr
+    
+class ResetPasswordRequest(BaseModel):
+    token: str
+    new_password: str
