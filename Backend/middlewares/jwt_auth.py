@@ -9,6 +9,7 @@ from fastapi.security import OAuth2PasswordBearer
 from typing import Optional
 from dotenv import load_dotenv
 
+
 import os
 
 # Load environment variables
@@ -63,3 +64,28 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     if user is None:
         raise HTTPException(status_code=404, detail="User not found.")
     return user
+
+# Create a token for the user to reset password
+def create_reset_password_token(email: str) -> str:
+    """Generate a reset password token for a given email."""
+    payload = {
+        "sub": email,
+        "exp": datetime.utcnow() + timedelta(minutes=10)
+    }
+    token = jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
+    return token
+
+# varify the reset password token
+def verify_reset_password_token(token: str, db: Session = Depends(get_db)):
+    payload = verify_token(token)
+    email = payload.get("email")
+    if email is None:
+        raise HTTPException(status_code=403, detail="Invalid token.")
+    user = db.query(User).filter(User.email == email).first()
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found.")
+    return token
+
+
+
+

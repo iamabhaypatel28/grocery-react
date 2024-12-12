@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from routes.user import router as user_router
+from routes.product import router as product_router
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
 from config.database import get_db
@@ -12,6 +13,7 @@ from config.settings import ORIGINS
 app = FastAPI()
 
 app.include_router(user_router, prefix="/api", tags=["User Management"])
+app.include_router(product_router, prefix="/product", tags=["product Management"])
 
 
 app.add_middleware(
