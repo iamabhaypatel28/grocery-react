@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException, Depends
-from schemas.product import ProductRequest, ProductResponse
+from schemas.product import ProductRequest, ProductResponse, AddproductRequest
 from config.database import get_db
 from sqlalchemy.orm import Session
-from models.product import Product
+from models.product import Product, Addproduct
 
 router = APIRouter()
 
@@ -58,3 +58,24 @@ async def delete_product(id: int, db: Session = Depends(get_db)):
     db.delete(product)
     db.commit()
     return {"message": "Product deleted successfully."}
+
+
+
+@router.post("/add-cart")
+async def add_to_cart(addcart: Addproduct, db: Session = Depends(get_db)):
+    existing_product = db.query(Product).filter(Product.name == addcart.name).first()
+    if existing_product:
+        raise HTTPException(status_code=400, detail="product is already existing.")
+    new_product = AddproductRequest(
+        product_id= addcart.id,
+        user_id=addcart.id,
+        name=addcart.name,
+        price=addcart.price,
+        details=addcart.details,
+        quantity=addcart.quantity
+    )
+    db.add(new_product)
+    db.commit()
+    db.refresh(new_product)
+    
+    return {"message": "Product added to cart successfully", "product_id":  new_product.id}
