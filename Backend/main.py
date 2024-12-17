@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from routes.user import router as user_router
-from routes.product import router as product_router
+from routes.product import router as product_router   
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
 from config.database import get_db
