@@ -61,14 +61,15 @@ async def delete_product(id: int, db: Session = Depends(get_db)):
 
 
 
+
 @router.post("/add-cart")
-async def add_to_cart(addcart: Addproduct, db: Session = Depends(get_db)):
+async def add_to_cart(addcart: AddproductRequest, db: Session = Depends(get_db)):
     existing_product = db.query(Product).filter(Product.name == addcart.name).first()
     if existing_product:
-        raise HTTPException(status_code=400, detail="product is already existing.")
-    new_product = AddproductRequest(
-        product_id= addcart.id,
-        user_id=addcart.id,
+        raise HTTPException(status_code=400, detail="Product is already existing.")
+
+    new_product = Addproduct(
+        user_id=addcart.user_id,
         name=addcart.name,
         price=addcart.price,
         details=addcart.details,
@@ -78,4 +79,4 @@ async def add_to_cart(addcart: Addproduct, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(new_product)
     
-    return {"message": "Product added to cart successfully", "product_id":  new_product.id}
+    return {"message": "Product added to cart successfully", "product_id": new_product.id}

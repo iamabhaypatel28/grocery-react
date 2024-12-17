@@ -15,9 +15,8 @@ class ProductResponse(BaseModel):
     product_id: UUID
 
 class AddproductRequest(BaseModel):
-   product_id: UUID
-   user_id: UUID
-   name: str
-   details: str
-   price: float
-   quantity: int
+    user_id: UUID
+    name: str
+    details: str
+    price: float
+    quantity: int
