@@ -58,7 +58,7 @@ git clone https://github.com/iamabhaypatel28/grocery-react.git
    ```
 
    The backend server will start running on **[http://127.0.0.1:8000](http://127.0.0.1:8000)**.
-   Show all api in **[http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)**
+   Show all api on **[http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)**
 
 ---
 
