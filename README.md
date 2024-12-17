@@ -1,10 +1,10 @@
-# YouTube Video Download Application
+# GROCERY-FASTAPI-REACRJS
 
 This project is a YouTube video downloader built with **FastAPI** for the backend and **ReactJS** for the frontend. Follow the steps below to set up and run the project.
 
 ## Project Repository
 
-[YouTube Video Download Application](https://github.com/iamabhaypatel28/grocery-react.git)
+[GROCERY-FASTAPI-REACRJS](https://github.com/iamabhaypatel28/grocery-react.git)
 
 ---
 
