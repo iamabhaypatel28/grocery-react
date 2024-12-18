@@ -1,4 +1,4 @@
-# GROCERY-FASTAPI-REACRJS E-COMMERCE WEB ( working on )
+# GROCERY-FASTAPI-REACRJS E-COMMERCE WEB ( Work is in progress. )
 
 This project is a YouTube video downloader built with **FastAPI** for the backend and **ReactJS** for the frontend. Follow the steps below to set up and run the project. backend devlop by **[https://github.com/iamabhaypatel28](https://github.com/iamabhaypatel28)** and frontend creat by **[https://github.com/DarshitThummar](https://github.com/DarshitThummar)**
 
